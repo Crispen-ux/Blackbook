@@ -3,6 +3,7 @@ import { useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Image, Loader } from "lucide-react";
+import avatar from '../assets/avatar.png'
 
 const PostCreation = ({ user }) => {
 	const [content, setContent] = useState("");
@@ -67,7 +68,7 @@ const PostCreation = ({ user }) => {
 	return (
 		<div className='bg-[#111926] rounded-lg shadow mb-5 p-4 mt-5'>
 			<div className='flex space-x-3'>
-				<img src={user.profilePicture || "../../src/assets/avatar.png"} alt={user.name} className='size-12 rounded-full' />
+				<img src={user.profilePicture || avatar} alt={user.name} className='size-12 rounded-full' />
 				<textarea
 					placeholder="What's on your mind?"
 					className='w-full p-3 text-black rounded-lg bg-base-100 hover:bg-base-200 focus:bg-base-200 focus:outline-none resize-none transition-colors duration-200 min-h-[100px]'

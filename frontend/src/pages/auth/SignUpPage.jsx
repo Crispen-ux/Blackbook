@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import SignUpForm from "../../components/auth/SignUpForm";
-
+import logo from '../../assets/logo2.png'
 const SignUpPage = () => {
 	return (
 		<div className='min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
 			<div className='sm:mx-auto sm:w-full sm:max-w-md'>
-			<img className='mx-auto h-30 w-auto' src='../../src/assets/logo2.png' alt='Blackbook' />
+			<img className='mx-auto h-30 w-auto' src={logo} alt='Blackbook' />
 				<h2 className='text-center text-3xl font-extrabold text-gray-400'>
 					Make the most of your professional life
 				</h2>

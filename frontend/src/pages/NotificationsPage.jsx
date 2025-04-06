@@ -96,12 +96,13 @@ const NotificationsPage = () => {
 	};
 
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6 bg-[#020916]'>
+		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6 bg-[#020916] min-h-screen'>
+
 			<div className='col-span-1 lg:col-span-1 mb-5'>
 				<Sidebar user={authUser} />
 			</div>
 			<div className='col-span-1 lg:col-span-3'>
-				<div className='bg-[#111926] rounded-lg shadow p-6 mt-5 mr-5'>
+				<div className='bg-[#111926] rounded shadow p-6 mt-5 mr-5'>
 					<h1 className='text-2xl font-bold mb-6'>Notifications</h1>
 
 					{isLoading ? (
@@ -111,8 +112,8 @@ const NotificationsPage = () => {
 							{notifications.data.map((notification) => (
 								<li
 									key={notification._id}
-									className={`bg-gray-700 border rounded-lg p-4 my-4 transition-all hover:shadow-md ${
-										!notification.read ? "border-teal-500" : "border-gray-200"
+									className={`bg-gray-800 border rounded p-4 my-4 transition-all hover:shadow-md ${
+										!notification.read ? "border-gray-800" : "border-teal-600"
 									}`}
 								>
 									<div className='flex items-start justify-between'>

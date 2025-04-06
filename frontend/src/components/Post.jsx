@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import { Loader, MessageCircle, Send, Share2, ThumbsUp, Trash2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import avatar from '../assets/avatar.png'
 
 import PostAction from "./PostAction";
 
@@ -87,13 +88,13 @@ const Post = ({ post }) => {
 	};
 
 	return (
-		<div className='bg-[#111926] rounded-lg shadow mb-4 mr-6'>
+		<div className='bg-[#111926] rounded-lg shadow mb-4 '>
 			<div className='p-4 mt-5'>
 				<div className='flex items-center justify-between mb-4'>
 					<div className='flex items-center '>
 						<Link to={`/profile/${post?.author?.username}`}>
 							<img
-								src={post.author.profilePicture || "../../src/assets/avatar.png"}
+								src={post.author.profilePicture || avatar}
 								alt={post.author.name}
 								className='size-10 rounded-full mr-3'
 							/>

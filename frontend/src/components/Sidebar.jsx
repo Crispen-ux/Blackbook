@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Home, UserPlus, Bell, User } from "lucide-react";
+import avatar from '../assets/avatar.png'
 
 export default function Sidebar({ user }) {
 	return (
@@ -13,16 +14,16 @@ export default function Sidebar({ user }) {
 				/>
 				<Link to={`/profile/${user.username}`}>
 					<img
-						src={user.profilePicture || "../../src/assets/avatar.png"}
+						src={user.profilePicture || avatar}
 						alt={user.name}
 						className='w-20 h-20 text-white rounded-full mx-auto mt-[-40px]'
 					/>
 					<h2 className='text-xl text-white font-semibold mt-2'>{user.name}</h2>
 				</Link>
 				<p className=' text-white'>{user.headline}</p>
-				<p className=' text-white text-xs'>{user.connections.length} connections</p>
+				<p className=' text-gray-400 text-xs'>{user.connections.length} connections</p>
 			</div>
-			<div className=' p-4  mx-auto border-t border-gray-400'>
+			<div className='w-7/8 mx-auto mt-4 pb-4 pt-4 border-t border-gray-400 '>
 				<nav>
 					<ul className='space-y-2 justify-left'>
 						<li>

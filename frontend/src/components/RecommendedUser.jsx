@@ -3,7 +3,7 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Check, Clock, UserCheck, UserPlus, X } from "lucide-react";
-
+import avatar from '../assets/avatar.png'
 const RecommendedUser = ({ user }) => {
 	const queryClient = useQueryClient();
 
@@ -115,7 +115,7 @@ const RecommendedUser = ({ user }) => {
 		<div className='flex items-center justify-between mb-4 bg-gray-700 p-2 rounded-lg'>
 			<Link to={`/profile/${user.username}`} className='flex items-center flex-grow '>
 				<img
-					src={user.profilePicture || "../../src/assets/avatar.png"}
+					src={user.profilePicture || avatar}
 					alt={user.name}
 					className='w-12 h-12 rounded-full mr-3'
 				/>

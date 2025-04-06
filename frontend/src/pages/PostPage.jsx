@@ -17,12 +17,12 @@ const PostPage = () => {
 	if (!post?.data) return <div>Post not found</div>;
 
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
-			<div className='hidden lg:block lg:col-span-1'>
+		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6 bg-[#020916] min-h-screen'>
+			<div className='hidden lg:block lg:col-span-1 bg-[#020916]'>
 				<Sidebar user={authUser} />
 			</div>
 
-			<div className='col-span-1 lg:col-span-3'>
+			<div className='col-span-1 lg:col-span-3 bg-[#020916]'>
 				<Post post={post.data} />
 			</div>
 		</div>

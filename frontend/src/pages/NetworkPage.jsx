@@ -19,12 +19,12 @@ const NetworkPage = () => {
 	});
 
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6 bg-[#020916]'>
+		<div className='grid grid-cols-1 lg:grid-cols-4 gap-6 bg-[#020916] min-h-screen'>
 			<div className='col-span-1 lg:col-span-1 mb-5'>
 				<Sidebar user={user} />
 			</div>
 			<div className='col-span-1 lg:col-span-3'>
-				<div className='bg-[#111926] rounded-lg shadow p-6 mb-6 mt-5 mr-5'>
+				<div className='bg-[#111926] rounded-lg shadow p-6 mb-6 mt-5 mr-5 '>
 					<h1 className='text-2xl font-bold mb-6'>My Network</h1>
 
 					{connectionRequests?.data?.length > 0 ? (
@@ -50,7 +50,7 @@ const NetworkPage = () => {
 					)}
 					{connections?.data?.length > 0 && (
 						<div className='mb-8'>
-							<h2 className='text-xl font-semibold mb-4'>My Connections</h2>
+							<h2 className='text-xl font-semibold mb-4 '>My Connections</h2>
 							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 								{connections.data.map((connection) => (
 									<UserCard key={connection._id} user={connection} isConnection={true} />

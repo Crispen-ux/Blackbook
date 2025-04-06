@@ -2,8 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
-
 import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
+import avatar from '../assets/avatar.png'
 
 const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -174,7 +174,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 				<div className='relative -mt-20 mb-4'>
 					<img
 						className='w-32 h-32 rounded-full mx-auto object-cover'
-						src={editedData.profilePicture || userData.profilePicture || "../../src/assets/avatar.png"}
+						src={editedData.profilePicture || userData.profilePicture || avatar}
 						alt={userData.name}
 					/>
 
@@ -192,13 +192,13 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 					)}
 				</div>
 
-				<div className='text-center bg-gray-900 rounded mx-auto mb-4'>
+				<div className='text-center bg-gray-900 rounded mx-auto mb-4 pt-4 pb-6'>
 					{isEditing ? (
 						<input
 							type='text'
 							value={editedData.name ?? userData.name}
 							onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-							className='text-2xl font-bold mb-2 text-center text-gray-300 w-full'
+							className='text-2xl font-bold mb-2 text-center text-gray-300  bg-gray-700 rounded w-[450px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
 						/>
 					) : (
 						<h1 className='text-2xl font-bold mb-2'>{userData.name}</h1>
@@ -209,50 +209,51 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							type='text'
 							value={editedData.headline ?? userData.headline}
 							onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-							className='text-gray-300 text-center w-full'
+							className='text-gray-300 text-center w-[450px] bg-gray-700 rounded h-[33px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
 						/>
 					) : (
-						<p className='text-gray-300'>{userData.headline}</p>
+						<p className='text-gray-300 mt-6'>{userData.headline}</p>
 					)}
 
-					<div className='flex justify-center items-center mt-4 '>
-						<MapPin size={16} className='text-gray-300 mr-1 mb-3.5' />
-						{isEditing ? (
-							<input
-								type='text'
-								value={editedData.location ?? userData.location}
-								onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
-								className='text-gray-300 text-center  '
-							/>
+<div className='flex justify-center items-center mt-4'>
+    <div className='flex justify-center items-center pt-3'>
+        <MapPin size={16} className='text-gray-300 mr-1 mb-3.5' />
+    </div>
+    {isEditing ? (
+        <input
+            type='text'
+            value={editedData.location ?? userData.location}
+            onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
+            className='text-gray-300 text-center bg-gray-700 rounded h-[33px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
+        />
+    ) : (
+        <span className='text-gray-300 mr-1 mb-1'>{userData.location}</span>
+    )}
+</div>
+					{isOwnProfile ? (
+						isEditing ? (
+							<button
+								className='w-[200px] mx-auto bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-300 
+									transition duration-300 ease-in-out mt-3'
+								onClick={handleSave}
+							>
+								Save
+							</button>
 						) : (
-							<span className='text-gray-300 mb-4 '>{userData.location}</span>
-						)}
-					</div>
-				</div>
-
-				{isOwnProfile ? (
-					isEditing ? (
-						<button
-							className='w-200px mx-auto bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-300 w-[200px] 
-							 transition duration-300'
-							onClick={handleSave}
-						>
-							Save Profile
-						</button>
+							<button
+								className='bg-teal-600 hover:bg-teal-300 text-white py-2 px-4 rounded transition duration-300'
+								onClick={() => setIsEditing(true)}
+							>
+								Edit Profile
+							</button>
+						)
 					) : (
-						<button
-							onClick={() => setIsEditing(true)}
-							className='w-200px mx-auto  bg-teal-600 text-white py-2 px-4 rounded items-center w-[200px]  justify-center hover:bg-teal-300
-							 transition duration-300'
-						>
-							Edit Profile
-						</button>
-					)
-				) : (
-					<div className='flex justify-center'>{renderConnectionButton()}</div>
-				)}
+						renderConnectionButton()
+					)}
+				</div>
 			</div>
 		</div>
 	);
 };
+
 export default ProfileHeader;
