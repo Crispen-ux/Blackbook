@@ -219,9 +219,9 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
     ) : (
       <p className="text-gray-300 mt-6">{userData.headline}</p>
     )}
-
+		 <MapPin size={16} className="text-gray-300 mr-1 mb-3.5" />
     <div className="flex justify-center items-center">
-      <MapPin size={16} className="text-gray-300 mr-1 mb-3.5" />
+     
       {isEditing ? (
         <input
           type="text"
