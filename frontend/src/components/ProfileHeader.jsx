@@ -209,7 +209,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							type='text'
 							value={editedData.headline ?? userData.headline}
 							onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-							className='text-gray-300 text-center  bg-gray-700 rounded h-[43px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
+							className='text-gray-300 text-center  bg-gray-700 rounded h-[33px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
 						/>
 					) : (
 						<p className='text-gray-300 mt-6'>{userData.headline}</p>
@@ -241,7 +241,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							</button>
 						) : (
 							<button
-								className='bg-teal-600 hover:bg-teal-300 text-white py-2 px-4 rounded transition duration-300'
+								className='w-[200px] bg-teal-600 hover:bg-teal-300 text-white py-2 px-4 rounded transition duration-300'
 								onClick={() => setIsEditing(true)}
 							>
 								Edit Profile
