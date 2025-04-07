@@ -198,7 +198,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							type='text'
 							value={editedData.name ?? userData.name}
 							onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-							className='text-2xl font-bold mb-2 text-center text-gray-300  bg-gray-700 rounded w-[450px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
+							className='text-2xl font-bold mb-2 text-center text-gray-300  bg-gray-700 rounded w-auto border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
 						/>
 					) : (
 						<h1 className='text-2xl font-bold mb-2'>{userData.name}</h1>
@@ -209,7 +209,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							type='text'
 							value={editedData.headline ?? userData.headline}
 							onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-							className='text-gray-300 text-center w-[450px] bg-gray-700 rounded h-[33px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
+							className='text-gray-300 text-center w-auto bg-gray-700 rounded h-[33px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600'
 						/>
 					) : (
 						<p className='text-gray-300 mt-6'>{userData.headline}</p>
