@@ -193,67 +193,71 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 				</div>
 
 				<div className="text-center bg-gray-900 rounded mx-auto mb-4 pt-4 pb-6">
-  {isEditing ? (
-    <input
-      type="text"
-      value={editedData.name ?? userData.name}
-      onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-      className="text-2xl font-bold mb-2 text-center text-gray-300 bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
-      placeholder="Enter your name"
-    />
-  ) : (
-    <h1 className="text-2xl font-bold mb-2">{userData.name}</h1>
-  )}
-
-  {isEditing ? (
-    <input
-      type="text"
-      value={editedData.headline ?? userData.headline}
-      onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-      className="text-gray-300 text-center bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
-      placeholder="Enter your headline"
-    />
-  ) : (
-    <p className="text-gray-300 mt-6">{userData.headline}</p>
-  )}
-
-  <div className="flex justify-center items-center mt-4">
-    <div className="flex justify-center items-center pt-3">
-      <MapPin size={16} className="text-gray-300 mr-1 mb-3.5" />
-    </div>
+  <div className="flex flex-col items-center space-y-4"> {/* Added flex-col and space-y-4 */}
     {isEditing ? (
       <input
         type="text"
-        value={editedData.location ?? userData.location}
-        onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
-        className="text-gray-300 text-center bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
-        placeholder="Enter your location"
+        value={editedData.name ?? userData.name}
+        onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
+        className="text-2xl font-bold text-center text-gray-300 bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
+        placeholder="Enter your name"
+        aria-label="Name"
       />
     ) : (
-      <span className="text-gray-300 mr-1 mb-1">{userData.location}</span>
+      <h1 className="text-2xl font-bold mb-2">{userData.name}</h1>
+    )}
+
+    {isEditing ? (
+      <input
+        type="text"
+        value={editedData.headline ?? userData.headline}
+        onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
+        className="text-gray-300 text-center bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
+        placeholder="Enter your headline"
+        aria-label="Headline"
+      />
+    ) : (
+      <p className="text-gray-300 mt-6">{userData.headline}</p>
+    )}
+
+    <div className="flex justify-center items-center">
+      <MapPin size={16} className="text-gray-300 mr-1 mb-3.5" />
+      {isEditing ? (
+        <input
+          type="text"
+          value={editedData.location ?? userData.location}
+          onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
+          className="text-gray-300 text-center bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
+          placeholder="Enter your location"
+          aria-label="Location"
+        />
+      ) : (
+        <span className="text-gray-300 mr-1 mb-1">{userData.location}</span>
+      )}
+    </div>
+
+    {isOwnProfile ? (
+      isEditing ? (
+        <button
+          className="w-[200px] mx-auto bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-300 transition duration-300 ease-in-out mt-3"
+          onClick={handleSave}
+        >
+          Save
+        </button>
+      ) : (
+        <button
+          className="w-[200px] bg-teal-600 hover:bg-teal-300 text-white py-2 px-4 rounded transition duration-300"
+          onClick={() => setIsEditing(true)}
+        >
+          Edit Profile
+        </button>
+      )
+    ) : (
+      renderConnectionButton()
     )}
   </div>
-
-  {isOwnProfile ? (
-    isEditing ? (
-      <button
-        className="w-[200px] mx-auto bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-300 transition duration-300 ease-in-out mt-3"
-        onClick={handleSave}
-      >
-        Save
-      </button>
-    ) : (
-      <button
-        className="w-[200px] bg-teal-600 hover:bg-teal-300 text-white py-2 px-4 rounded transition duration-300"
-        onClick={() => setIsEditing(true)}
-      >
-        Edit Profile
-      </button>
-    )
-  ) : (
-    renderConnectionButton()
-  )}
 </div>
+
 
 			</div>
 		</div>
