@@ -199,7 +199,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
         type="text"
         value={editedData.name ?? userData.name}
         onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-        className="ml-4 text-2xl font-bold text-center text-gray-300 bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
+        className="ml-5 text-2xl font-bold text-center text-gray-300 bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
         placeholder="Enter your name"
         aria-label="Name"
       />
@@ -212,7 +212,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
         type="text"
         value={editedData.headline ?? userData.headline}
         onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-        className="ml-4 text-gray-300 text-center bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
+        className="ml-5 text-gray-300 text-center bg-gray-700 rounded h-[33px] w-[400px] border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
         placeholder="Enter your headline"
         aria-label="Headline"
       />
