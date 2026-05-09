@@ -101,8 +101,7 @@ export default function OnboardingPage() {
     <div className="min-h-screen bg-dark-1 flex">
       {/* Sidebar */}
       <div className="hidden lg:flex flex-col w-72 bg-dark-2 border-r border-dark-4 p-8">
-        <Image src="/logo.png" alt="BlackBook" width={160} height={40} className="h-10 w-auto mb-12" />
-        <nav className="space-y-1">
+         <Logo className="text-2xl sm:text-3xl lg:text-4xl" />
           {steps.map((s, i) => {
             const active = i === step
             const done = i < step
