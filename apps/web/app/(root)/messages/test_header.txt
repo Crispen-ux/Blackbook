@@ -1,0 +1,22 @@
+'use client'
+
+import { useEffect, useState, useCallback } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
+import { formatRelativeTime, cn } from '@/lib/utils'
+import { MessageSquare, Plus, Loader2, X, Search, ImageIcon } from 'lucide-react'
+
+interface ChatMember {
+  user_id: string
+  user: { id: string; full_name: string; avatar_url: string | null }
+}
+
+interface Chat {
+  id: string
+  type: string
+  name: string | null
+  last_message_at: string | null
+  members: ChatMember[]
+  last_message?: { content: string; created_at: string; attachments?: any[] }
+}

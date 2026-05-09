@@ -37,7 +37,7 @@ export function Topbar({ onMenuToggle }: TopbarProps) {
             alt="BlackBook"
             width={180}
             height={45}
-            className="h-12 w-auto sm:h-14 lg:h-20"
+            className="h-14 w-auto sm:h-16 lg:h-24"
           />
         </div>
         <div className="flex items-center gap-3 lg:gap-4">
