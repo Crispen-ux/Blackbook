@@ -1,0 +1,94 @@
+'use client'
+
+import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { formatRelativeTime } from '@/lib/utils'
+import { Heart, MessageCircle, Trash2 } from 'lucide-react'
+
+interface PostCardProps {
+  post: {
+    id: string
+    content: string
+    image_url: string | null
+    created_at: string
+    author_id: string
+    author: { id: string; full_name: string; avatar_url: string | null; position: string | null; company: string | null }
+    likes: { user_id: string }[]
+    comments: { id: string }[]
+  }
+}
+
+export function PostCard({ post }: PostCardProps) {
+  const [isLiked, setIsLiked] = useState(false)
+  const [likeCount, setLikeCount] = useState(post.likes?.length || 0)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+  const supabase = createClient()
+
+  useState(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setCurrentUserId(user.id)
+        setIsLiked(post.likes?.some(l => l.user_id === user.id) ?? false)
+      }
+    })
+  })
+
+  const handleLike = async () => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+
+    if (isLiked) {
+      await supabase.from('post_likes').delete().match({ post_id: post.id, user_id: user.id })
+      setIsLiked(false)
+      setLikeCount(prev => Math.max(0, prev - 1))
+    } else {
+      await supabase.from('post_likes').insert({ post_id: post.id, user_id: user.id })
+      setIsLiked(true)
+      setLikeCount(prev => prev + 1)
+    }
+  }
+
+  const handleDelete = async () => {
+    await supabase.from('posts').delete().match({ id: post.id })
+  }
+
+  return (
+    <div className="bg-dark-2 rounded-xl p-4 border border-dark-4">
+      <div className="flex items-start gap-3">
+        <div className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+          {post.author.full_name.charAt(0)}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-light-1 text-sm">{post.author.full_name}</span>
+            {post.author.position && (
+              <span className="text-light-4 text-xs">
+                {post.author.position}{post.author.company ? ` at ${post.author.company}` : ''}
+              </span>
+            )}
+            <span className="text-light-4 text-xs ml-auto">{formatRelativeTime(post.created_at)}</span>
+          </div>
+          <p className="mt-2 text-light-2 text-sm whitespace-pre-wrap">{post.content}</p>
+          {post.image_url && (
+            <img src={post.image_url} alt="" className="mt-3 rounded-lg max-h-96 w-full object-cover" />
+          )}
+          <div className="flex items-center gap-6 mt-3 pt-3 border-t border-dark-4">
+            <button onClick={handleLike} className="flex items-center gap-1.5 text-sm transition">
+              <Heart size={16} className={isLiked ? 'fill-accent text-accent' : 'text-light-4 hover:text-accent'} />
+              <span className={isLiked ? 'text-accent' : 'text-light-4'}>{likeCount}</span>
+            </button>
+            <button className="flex items-center gap-1.5 text-sm text-light-4 hover:text-primary-500 transition">
+              <MessageCircle size={16} />
+              <span>{post.comments?.length || 0}</span>
+            </button>
+            {currentUserId === post.author_id && (
+              <button onClick={handleDelete} className="ml-auto text-light-4 hover:text-accent transition">
+                <Trash2 size={16} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

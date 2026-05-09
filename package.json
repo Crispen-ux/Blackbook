@@ -1,0 +1,27 @@
+{
+  "name": "blackbook",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w apps/web",
+    "dev:mobile": "npm run dev -w apps/mobile",
+    "build:web": "npm run build -w apps/web",
+    "build:mobile": "npm run build -w apps/mobile",
+    "lint": "npm run lint -w apps/web",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.105.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.2.4"
+  }
+}
