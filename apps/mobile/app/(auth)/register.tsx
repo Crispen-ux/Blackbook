@@ -22,7 +22,7 @@ export default function RegisterScreen() {
       Alert.alert('Error', error.message)
       return
     }
-    Alert.alert('Success', 'Account created! Check your email to confirm.', [{ text: 'OK', onPress: () => router.replace('/(auth)') }])
+    router.replace('/(main)/onboarding')
   }
 
   return (

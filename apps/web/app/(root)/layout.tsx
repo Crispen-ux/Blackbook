@@ -23,10 +23,17 @@ export default function RootLayout({
         router.push('/')
         return
       }
+      if (pathname !== '/onboarding') {
+        const { data } = await supabase.from('profiles').select('onboarded').eq('id', user.id).single()
+        if (data && !data.onboarded) {
+          router.push('/onboarding')
+          return
+        }
+      }
       setLoading(false)
     }
     checkAuth()
-  }, [router, supabase])
+  }, [router, supabase, pathname])
 
   if (loading) {
     return (
@@ -34,6 +41,10 @@ export default function RootLayout({
         <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary-500 border-t-transparent" />
       </div>
     )
+  }
+
+  if (pathname === '/onboarding') {
+    return <>{children}</>
   }
 
   return (

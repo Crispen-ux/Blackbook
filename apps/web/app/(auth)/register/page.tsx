@@ -33,7 +33,7 @@ export default function RegisterPage() {
       return
     }
 
-    router.push('/feed')
+    router.push('/onboarding')
     router.refresh()
   }
 

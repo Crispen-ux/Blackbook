@@ -1,10 +1,28 @@
 import { useEffect, useState } from 'react'
-import { Tabs } from 'expo-router'
+import { Tabs, router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { supabase } from '../../lib/supabase'
 
+function useOnboardingCheck() {
+  const [checking, setChecking] = useState(true)
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+      const { data } = await supabase.from('profiles').select('onboarded').eq('id', user.id).single()
+      if (data && !data.onboarded) {
+        router.replace('/(main)/onboarding')
+      } else {
+        setChecking(false)
+      }
+    })()
+  }, [])
+  return checking
+}
+
 export default function MainTabLayout() {
   const [unreadCount, setUnreadCount] = useState(0)
+  const checking = useOnboardingCheck()
 
   useEffect(() => {
     const fetchCount = async () => {
@@ -17,18 +35,20 @@ export default function MainTabLayout() {
         .eq('is_read', false)
       if (count !== null) setUnreadCount(count)
     }
-    fetchCount()
+    if (!checking) fetchCount()
 
     const channel = supabase
       .channel('unread-count')
       .on('postgres_changes',
         { event: '*', schema: 'public', table: 'notifications' },
-        () => { fetchCount() }
+        () => { if (!checking) fetchCount() }
       )
       .subscribe()
 
     return () => { supabase.removeChannel(channel) }
-  }, [])
+  }, [checking])
+
+  if (checking) return null
 
   return (
     <Tabs
@@ -46,6 +66,7 @@ export default function MainTabLayout() {
       <Tabs.Screen name="events" options={{ title: 'Events', tabBarIcon: ({ color, size }) => <Ionicons name="calendar" size={size} color={color} /> }} />
       <Tabs.Screen name="mentorship" options={{ title: 'Mentorship', tabBarIcon: ({ color, size }) => <Ionicons name="school" size={size} color={color} /> }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile', tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} /> }} />
+      <Tabs.Screen name="onboarding" options={{ tabBarStyle: { display: 'none' }, tabBarItemStyle: { display: 'none' } }} />
     </Tabs>
   )
 }

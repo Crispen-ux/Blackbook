@@ -21,16 +21,16 @@ const features = [
 
 const plans = [
   {
-    name: 'Free', price: '$0', period: 'forever', featured: false,
-    items: ['Profile creation', 'Join circles', 'Browse events', 'Basic networking', 'Community Q&A'],
+    name: 'Free', price: 'R0', period: '/month', featured: false,
+    items: ['Browse feed', 'View events', 'Join public circles', 'Basic search', 'Community Q&A'],
   },
   {
-    name: 'Premium', price: '$19', period: '/month', featured: true,
-    items: ['Everything in Free', 'AI mentor matching', 'Unlimited messaging', 'Premium events access', 'Advanced analytics'],
+    name: 'Pro', price: 'R299', period: '/month', featured: true,
+    items: ['Everything in Free', 'Unlimited messaging', 'Premium mentor matching', 'Private circles', 'Anonymous Q&A'],
   },
   {
-    name: 'Enterprise', price: '$49', period: '/month', featured: false,
-    items: ['Everything in Premium', 'Dedicated account manager', 'Custom circles', 'API access', 'Priority support'],
+    name: 'Enterprise', price: 'R999', period: '/month', featured: false,
+    items: ['Everything in Pro', 'Team management', 'Analytics dashboard', 'Custom branding', 'Priority support', 'API access'],
   },
 ]
 
