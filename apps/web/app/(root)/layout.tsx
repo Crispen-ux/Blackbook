@@ -12,6 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const [loading, setLoading] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
   const supabase = createClient()
@@ -49,13 +50,13 @@ export default function RootLayout({
 
   return (
     <div className="min-h-screen bg-dark-1">
-      <Topbar />
-      <div className="flex pt-24">
-        <Sidebar />
-        <main className="flex-1 ml-64 p-6 max-w-4xl">
+      <Topbar onMenuToggle={() => setSidebarOpen(v => !v)} />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <main className="pt-24 lg:ml-64 min-h-screen">
+        <div className="px-4 py-6 lg:px-6 max-w-4xl mx-auto">
           {children}
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }

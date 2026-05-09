@@ -3,11 +3,15 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LogOut } from 'lucide-react'
+import { LogOut, Menu } from 'lucide-react'
 import { NotificationBell } from './NotificationBell'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 
-export function Topbar() {
+interface TopbarProps {
+  onMenuToggle: () => void
+}
+
+export function Topbar({ onMenuToggle }: TopbarProps) {
   const router = useRouter()
   const supabase = createClient()
 
@@ -18,12 +22,25 @@ export function Topbar() {
   }
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 h-24 bg-dark-2 border-b border-dark-4">
-      <div className="flex items-center justify-between h-full px-6 ml-64">
-        <div className="flex items-center gap-4">
-          <Image src="/logo.png" alt="BlackBook" width={300} height={75} className="h-20 mt-10 w-auto" />
+    <header className="fixed top-0 right-0 left-0 z-30 h-24 bg-dark-2 border-b border-dark-4">
+      <div className="flex items-center justify-between h-full px-4 lg:px-6 lg:ml-64">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onMenuToggle}
+            className="p-2 text-light-4 hover:text-light-1 transition lg:hidden"
+            aria-label="Toggle menu"
+          >
+            <Menu size={24} />
+          </button>
+          <Image
+            src="/logo.png"
+            alt="BlackBook"
+            width={180}
+            height={45}
+            className="h-12 w-auto sm:h-14 lg:h-20"
+          />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 lg:gap-4">
           <ThemeToggle />
           <NotificationBell />
           <button

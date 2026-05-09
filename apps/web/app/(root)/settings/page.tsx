@@ -157,7 +157,7 @@ export default function SettingsPage() {
               className="w-full px-4 py-3 bg-dark-1 border border-dark-4 rounded-lg text-light-1 focus:outline-none focus:ring-2 focus:ring-primary-500" required />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-light-3 mb-1">Company</label>
               <input value={f.company} onChange={e => setF(p => ({ ...p, company: e.target.value }))}
@@ -191,7 +191,7 @@ export default function SettingsPage() {
             <p className="text-xs text-light-4">These fields help our AI find the best mentors, events, and connections for you.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-light-3 mb-1">Industry</label>
               <input value={f.industry} onChange={e => setF(p => ({ ...p, industry: e.target.value }))}
@@ -286,7 +286,7 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <div className="bg-dark-2 rounded-xl border border-dark-4 p-6 space-y-4">
             <h3 className="font-semibold text-light-1">Account Details</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div>
                 <span className="text-light-4">Email</span>
                 <p className="text-light-1 font-medium mt-0.5">{profile.email}</p>

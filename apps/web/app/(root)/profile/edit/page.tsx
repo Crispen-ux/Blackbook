@@ -102,7 +102,7 @@ export default function EditProfilePage() {
             className="w-full px-4 py-3 bg-dark-2 border border-dark-4 rounded-lg text-light-1" required />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-light-3 mb-1">Company</label>
             <input value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))}
@@ -125,7 +125,7 @@ export default function EditProfilePage() {
           <h2 className="text-sm font-semibold text-primary-500 mb-3">AI Matching Profile</h2>
           <p className="text-xs text-light-4 mb-4">These fields help our AI find the best mentors, events, and connections for you.</p>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-light-3 mb-1">Industry</label>
               <input value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))}

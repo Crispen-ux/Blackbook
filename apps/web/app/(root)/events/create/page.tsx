@@ -75,7 +75,7 @@ export default function CreateEventPage() {
           <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
             className="w-full px-4 py-3 bg-dark-2 border border-dark-4 rounded-lg text-light-1 min-h-[100px]" />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-light-3 mb-1">Start Time *</label>
             <input type="datetime-local" value={form.start_time} onChange={e => setForm(f => ({ ...f, start_time: e.target.value }))}
@@ -87,7 +87,7 @@ export default function CreateEventPage() {
               className="w-full px-4 py-3 bg-dark-2 border border-dark-4 rounded-lg text-light-1" required />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-light-3 mb-1">Type</label>
             <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}

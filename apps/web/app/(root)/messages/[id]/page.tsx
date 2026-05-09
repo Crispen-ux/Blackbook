@@ -164,7 +164,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="-m-4 lg:-m-6 flex flex-col h-[calc(100dvh-6rem)]">
       <div className="flex-1 overflow-y-auto space-y-2 p-4">
         {messages.map(msg => (
           <div key={msg.id} className={`flex ${msg.sender_id === currentUserId ? 'justify-end' : 'justify-start'}`}>

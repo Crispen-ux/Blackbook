@@ -74,7 +74,7 @@ export default function EventDetailPage() {
         {event.description && <p className="mt-3 text-light-2">{event.description}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4 bg-dark-2 rounded-xl p-4 border border-dark-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-dark-2 rounded-xl p-4 border border-dark-4">
         <div className="flex items-center gap-2 text-light-4">
           <Calendar size={16} /><span className="text-sm">{formatDate(event.start_time)}</span>
         </div>

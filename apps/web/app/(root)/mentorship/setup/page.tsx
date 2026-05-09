@@ -88,7 +88,7 @@ export default function MentorSetupPage() {
             className="w-full px-4 py-3 bg-dark-2 border border-dark-4 rounded-lg text-light-1 min-h-[100px]" required />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-light-3 mb-1">Expertise (comma-separated) *</label>
             <input value={form.expertise} onChange={e => setForm(f => ({ ...f, expertise: e.target.value }))}

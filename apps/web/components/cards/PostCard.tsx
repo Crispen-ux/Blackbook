@@ -45,7 +45,28 @@ export function PostCard({ post, onRefresh }: PostCardProps) {
     setIsLiked(newLiked)
     setLikeCount(prev => newLiked ? prev + 1 : Math.max(0, prev - 1))
 
-    supabase.rpc('toggle_post_like', { p_post_id: post.id }).then()
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session?.access_token) return
+
+    const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/post_likes`
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session.access_token}`,
+      'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    }
+
+    if (newLiked) {
+      fetch(url, {
+        method: 'POST',
+        headers: { ...headers, Prefer: 'return=minimal' },
+        body: JSON.stringify({ post_id: post.id, user_id: user.id }),
+      })
+    } else {
+      fetch(`${url}?post_id=eq.${post.id}&user_id=eq.${user.id}`, {
+        method: 'DELETE',
+        headers,
+      })
+    }
   }
 
   const handleDelete = async () => {
@@ -60,14 +81,14 @@ export function PostCard({ post, onRefresh }: PostCardProps) {
           {post.author.full_name.charAt(0)}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="font-semibold text-light-1 text-sm">{post.author.full_name}</span>
             {post.author.position && (
-              <span className="text-light-4 text-xs">
+              <span className="text-light-4 text-xs truncate max-w-[180px] sm:max-w-none">
                 {post.author.position}{post.author.company ? ` at ${post.author.company}` : ''}
               </span>
             )}
-            <span className="text-light-4 text-xs ml-auto">{formatRelativeTime(post.created_at)}</span>
+            <span className="text-light-4 text-xs ml-auto shrink-0">{formatRelativeTime(post.created_at)}</span>
           </div>
           <p className="mt-2 text-light-2 text-sm whitespace-pre-wrap">{post.content}</p>
           {post.image_url && (
