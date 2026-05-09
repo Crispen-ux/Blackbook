@@ -68,11 +68,7 @@ export default function FeedScreen() {
         : p
     ))
 
-    if (newLiked) {
-      try { await supabase.from('post_likes').insert({ post_id: postId, user_id: user.id }) } catch {}
-    } else {
-      try { await supabase.from('post_likes').delete().match({ post_id: postId, user_id: user.id }) } catch {}
-    }
+    supabase.rpc('toggle_post_like', { p_post_id: postId }).then()
   }
 
   const handleDelete = async (postId: string) => {

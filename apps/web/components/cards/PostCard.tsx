@@ -45,11 +45,7 @@ export function PostCard({ post, onRefresh }: PostCardProps) {
     setIsLiked(newLiked)
     setLikeCount(prev => newLiked ? prev + 1 : Math.max(0, prev - 1))
 
-    if (newLiked) {
-      try { await supabase.from('post_likes').insert({ post_id: post.id, user_id: user.id }) } catch {}
-    } else {
-      try { await supabase.from('post_likes').delete().match({ post_id: post.id, user_id: user.id }) } catch {}
-    }
+    supabase.rpc('toggle_post_like', { p_post_id: post.id }).then()
   }
 
   const handleDelete = async () => {

@@ -64,11 +64,10 @@ export default function PostDetailScreen() {
 
     if (newLiked) {
       setPost({ ...post, likes: [...post.likes, { user_id: currentUserId }] })
-      try { await supabase.from('post_likes').insert({ post_id: id, user_id: currentUserId }) } catch {}
     } else {
       setPost({ ...post, likes: post.likes.filter(l => l.user_id !== currentUserId) })
-      try { await supabase.from('post_likes').delete().match({ post_id: id, user_id: currentUserId }) } catch {}
     }
+    supabase.rpc('toggle_post_like', { p_post_id: id }).then()
   }
 
   const handleComment = async () => {
