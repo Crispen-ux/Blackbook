@@ -1,11 +1,11 @@
 'use client'
 
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { LogOut, Menu } from 'lucide-react'
 import { NotificationBell } from './NotificationBell'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
+import { Logo } from './Logo'
 
 interface TopbarProps {
   onMenuToggle: () => void
@@ -16,7 +16,7 @@ export function Topbar({ onMenuToggle }: TopbarProps) {
   const supabase = createClient()
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    await (supabase.auth as any).signOut()
     router.push('/')
     router.refresh()
   }
@@ -32,13 +32,7 @@ export function Topbar({ onMenuToggle }: TopbarProps) {
           >
             <Menu size={24} />
           </button>
-          <Image
-            src="/logo.png"
-            alt="BlackBook"
-            width={180}
-            height={45}
-            className="h-14 w-auto sm:h-16 lg:h-24"
-          />
+          <Logo className="text-2xl sm:text-3xl lg:text-4xl" />
         </div>
         <div className="flex items-center gap-3 lg:gap-4">
           <ThemeToggle />

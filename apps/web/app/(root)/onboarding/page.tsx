@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
+import { Logo } from '@/components/shared/Logo'
 import { CheckCircle, ArrowRight, ArrowLeft, Sparkles, Users, Briefcase, Rocket } from 'lucide-react'
 
 const steps = [

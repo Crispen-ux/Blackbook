@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
+import { Logo } from '@/components/shared/Logo'
 import { ArrowRight, CheckCircle, Menu, X, MessageSquare, Calendar, GraduationCap, Users, Circle, HelpCircle, Sparkles, Shield, Globe, Zap } from 'lucide-react'
 
 const features = [
@@ -62,7 +62,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-24">
             <Link href="/" className="flex items-center gap-3">
-              <Image src="/logo.png" alt="BlackBook" width={300} height={75} className="h-20 w-auto" />
+              <Logo className="text-4xl" />
             </Link>
             <div className="hidden md:flex items-center gap-6">
               <a href="#features" className="text-sm text-light-4 hover:text-light-1 transition">Features</a>
@@ -260,7 +260,7 @@ export default function HomePage() {
             <div className="hidden md:flex justify-center">
               <div className="relative w-64 h-125 bg-dark-2 rounded-4xl border-4 border-dark-4 p-2">
                 <div className="w-full h-full bg-linear-to-b from-primary-500/20 to-dark-3 rounded-[28px] flex flex-col items-center justify-center gap-4">
-                  <Image src="/logo.png" alt="" width={120} height={30} className="h-8 w-auto opacity-40" />
+                  <Logo className="text-lg opacity-40" />
                   <div className="w-12 h-12 rounded-xl bg-primary-500/20 flex items-center justify-center">
                     <Zap size={24} className="text-primary-500" />
                   </div>
@@ -289,7 +289,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="space-y-4">
-              <Image src="/logo.png" alt="BlackBook" width={250} height={62} className="h-16 w-auto" />
+              <Logo className="text-3xl" />
               <p className="text-sm text-light-4">Africa&apos;s premium professional network for Black decision-makers.</p>
             </div>
             {[
