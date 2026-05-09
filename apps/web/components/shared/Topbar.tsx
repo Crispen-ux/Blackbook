@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { LogOut } from 'lucide-react'
 import { NotificationBell } from './NotificationBell'
+import { ThemeToggle } from '@/components/theme/ThemeToggle'
 
 export function Topbar() {
   const router = useRouter()
@@ -23,6 +24,7 @@ export function Topbar() {
           <Image src="/logo.png" alt="BlackBook" width={300} height={75} className="h-20 w-auto" />
         </div>
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           <NotificationBell />
           <button
             onClick={handleSignOut}

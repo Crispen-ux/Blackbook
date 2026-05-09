@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import ThemeWrapper from '@/components/theme/ThemeWrapper'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://blackbook.com'),
@@ -48,9 +49,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('blackbook-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body>
-        {children}
+        <ThemeWrapper>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('blackbook-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})()`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -69,6 +82,7 @@ export default function RootLayout({
             }),
           }}
         />
+        </ThemeWrapper>
       </body>
     </html>
   )

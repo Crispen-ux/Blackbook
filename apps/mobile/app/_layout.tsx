@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { PaperProvider, MD3DarkTheme } from 'react-native-paper'
+import { PaperProvider, MD3DarkTheme, MD3LightTheme } from 'react-native-paper'
 import { View, ActivityIndicator } from 'react-native'
 import * as Notifications from 'expo-notifications'
 import { supabase } from '../lib/supabase'
 import { registerForPushNotifications } from '../lib/push'
+import { ThemeProvider, useAppTheme } from '../context/ThemeContext'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,18 +16,46 @@ Notifications.setNotificationHandler({
   }),
 })
 
-const theme = {
-  ...MD3DarkTheme,
-  colors: {
-    ...MD3DarkTheme.colors,
-    primary: '#6366f1',
-    primaryContainer: '#4f46e5',
-    background: '#000000',
-    surface: '#1a1a2e',
-    surfaceVariant: '#16213e',
-    onSurface: '#ffffff',
-    onSurfaceVariant: '#94a3b8',
-  },
+function ThemedApp() {
+  const { colors, isDark } = useAppTheme()
+
+  const paperTheme = isDark
+    ? {
+        ...MD3DarkTheme,
+        colors: {
+          ...MD3DarkTheme.colors,
+          primary: colors.primary,
+          primaryContainer: '#4f46e5',
+          background: colors.background,
+          surface: colors.surface,
+          surfaceVariant: colors.surfaceAlt,
+          onSurface: colors.text,
+          onSurfaceVariant: colors.textMuted,
+        },
+      }
+    : {
+        ...MD3LightTheme,
+        colors: {
+          ...MD3LightTheme.colors,
+          primary: colors.primary,
+          primaryContainer: '#c7d2fe',
+          background: colors.background,
+          surface: colors.surface,
+          surfaceVariant: colors.surfaceAlt,
+          onSurface: colors.text,
+          onSurfaceVariant: colors.textMuted,
+        },
+      }
+
+  return (
+    <PaperProvider theme={paperTheme}>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.background } }}>
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(main)" />
+      </Stack>
+    </PaperProvider>
+  )
 }
 
 export default function RootLayout() {
@@ -40,7 +69,6 @@ export default function RootLayout() {
 
     const sub = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data
-      // Future: navigate based on notification data
     })
 
     return () => sub.remove()
@@ -55,12 +83,8 @@ export default function RootLayout() {
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <StatusBar style="light" />
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#000' } }}>
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(main)" />
-      </Stack>
-    </PaperProvider>
+    <ThemeProvider>
+      <ThemedApp />
+    </ThemeProvider>
   )
 }

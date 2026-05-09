@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
+import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { ArrowRight, CheckCircle, Menu, X, MessageSquare, Calendar, GraduationCap, Users, Circle, HelpCircle, Sparkles, Shield, Globe, Zap } from 'lucide-react'
 
 const features = [
@@ -63,10 +64,11 @@ export default function HomePage() {
             <Link href="/" className="flex items-center gap-3">
               <Image src="/logo.png" alt="BlackBook" width={300} height={75} className="h-20 w-auto" />
             </Link>
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6">
               <a href="#features" className="text-sm text-light-4 hover:text-light-1 transition">Features</a>
               <a href="#pricing" className="text-sm text-light-4 hover:text-light-1 transition">Pricing</a>
               <Link href="/login" className="text-sm text-light-4 hover:text-light-1 transition">Sign In</Link>
+              <ThemeToggle />
               <Link href="/register" className="px-5 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-lg transition">
                 Get Started
               </Link>
@@ -94,10 +96,10 @@ export default function HomePage() {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
             Connect, Grow, and{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-purple-400">Thrive Together</span>
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-500 to-purple-400">Thrive Together</span>
           </h1>
           <p className="text-lg sm:text-xl text-light-4 max-w-2xl mx-auto">
-            The exclusive platform connecting Black professionals across Africa and the diaspora.
+            The exclusive platform connecting professionals across Africa and the diaspora.
             Build your network, find mentors, and unlock new opportunities.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -256,8 +258,8 @@ export default function HomePage() {
               </div>
             </div>
             <div className="hidden md:flex justify-center">
-              <div className="relative w-64 h-[500px] bg-dark-2 rounded-[32px] border-4 border-dark-4 p-2">
-                <div className="w-full h-full bg-gradient-to-b from-primary-500/20 to-dark-3 rounded-[28px] flex flex-col items-center justify-center gap-4">
+              <div className="relative w-64 h-125 bg-dark-2 rounded-4xl border-4 border-dark-4 p-2">
+                <div className="w-full h-full bg-linear-to-b from-primary-500/20 to-dark-3 rounded-[28px] flex flex-col items-center justify-center gap-4">
                   <Image src="/logo.png" alt="" width={120} height={30} className="h-8 w-auto opacity-40" />
                   <div className="w-12 h-12 rounded-xl bg-primary-500/20 flex items-center justify-center">
                     <Zap size={24} className="text-primary-500" />
