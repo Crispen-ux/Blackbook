@@ -101,23 +101,32 @@ export default function OnboardingPage() {
     <div className="min-h-screen bg-dark-1 flex">
       {/* Sidebar */}
       <div className="hidden lg:flex flex-col w-72 bg-dark-2 border-r border-dark-4 p-8">
-         <Logo className="text-2xl sm:text-3xl lg:text-4xl" />
-          {steps.map((s, i) => {
-            const active = i === step
-            const done = i < step
-            return (
-              <button key={s.id} onClick={() => i < step && setStep(i)}
-                className={`flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium transition ${
-                  active ? 'bg-primary-500/10 text-primary-500 border border-primary-500/30' :
-                  done ? 'text-green-400' : 'text-light-4'
-                }`}>
-                <s.icon size={18} />
-                <span>{s.label}</span>
-                {done && <CheckCircle size={14} className="ml-auto" />}
-              </button>
-            )
-          })}
-        </nav>
+  <Logo className="text-2xl sm:text-3xl lg:text-4xl mb-12" />
+
+  <nav className="space-y-1">
+    {steps.map((s, i) => {
+      const active = i === step
+      const done = i < step
+
+      return (
+        <button
+          key={s.id}
+          onClick={() => i < step && setStep(i)}
+          className={`flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium transition ${
+            active
+              ? 'bg-primary-500/10 text-primary-500 border border-primary-500/30'
+              : done
+              ? 'text-green-400'
+              : 'text-light-4'
+          }`}
+        >
+          <s.icon size={18} />
+          <span>{s.label}</span>
+          {done && <CheckCircle size={14} className="ml-auto" />}
+        </button>
+      )
+    })}
+  </nav>
       </div>
 
       {/* Main */}
