@@ -99,8 +99,8 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen bg-dark-1 flex">
-      {/* Sidebar */}
-      <div className="hidden lg:flex flex-col w-72 bg-dark-2 border-r border-dark-4 p-8">
+     {/* Sidebar */}
+<div className="hidden lg:flex flex-col w-72 bg-dark-2 border-r border-dark-4 p-8">
   <Logo className="text-2xl sm:text-3xl lg:text-4xl mb-12" />
 
   <nav className="space-y-1">
@@ -122,13 +122,14 @@ export default function OnboardingPage() {
         >
           <s.icon size={18} />
           <span>{s.label}</span>
-          {done && <CheckCircle size={14} className="ml-auto" />}
+          {done && (
+            <CheckCircle size={14} className="ml-auto" />
+          )}
         </button>
       )
     })}
   </nav>
-      </div>
-
+</div>
       {/* Main */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-xl">
@@ -182,7 +183,7 @@ export default function OnboardingPage() {
                 <div>
                   <label className="block text-sm font-medium text-light-3 mb-1">Bio</label>
                   <textarea value={f.bio} onChange={e => setF(p => ({ ...p, bio: e.target.value }))}
-                    className="w-full px-4 py-3 bg-dark-2 border border-dark-4 rounded-lg text-light-1 min-h-[100px] focus:outline-none focus:ring-2 focus:ring-primary-500" maxLength={500} placeholder="Tell your story..." />
+                    className="w-full px-4 py-3 bg-dark-2 border border-dark-4 rounded-lg text-light-1 min-h-25 focus:outline-none focus:ring-2 focus:ring-primary-500" maxLength={500} placeholder="Tell your story..." />
                 </div>
               </div>
             </div>
