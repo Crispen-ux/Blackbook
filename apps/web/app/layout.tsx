@@ -59,6 +59,7 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeWrapper>
+        {children}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('blackbook-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}})()`,
