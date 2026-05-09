@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator, Alert, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
+import { router } from 'expo-router'
 import { supabase } from '../../lib/supabase'
 import { pickAndUpload } from '../../lib/upload'
 
@@ -54,12 +55,24 @@ export default function FeedScreen() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    if (isLiked) {
-      await supabase.from('post_likes').delete().match({ post_id: postId, user_id: user.id })
+    const newLiked = !isLiked
+
+    setPosts(prev => prev.map(p =>
+      p.id === postId
+        ? {
+            ...p,
+            likes: newLiked
+              ? [...p.likes, { user_id: user.id }]
+              : p.likes.filter(l => l.user_id !== user.id),
+          }
+        : p
+    ))
+
+    if (newLiked) {
+      try { await supabase.from('post_likes').insert({ post_id: postId, user_id: user.id }) } catch {}
     } else {
-      await supabase.from('post_likes').insert({ post_id: postId, user_id: user.id })
+      try { await supabase.from('post_likes').delete().match({ post_id: postId, user_id: user.id }) } catch {}
     }
-    fetchPosts()
   }
 
   const handleDelete = async (postId: string) => {
@@ -89,9 +102,9 @@ export default function FeedScreen() {
             <Ionicons name={isLiked ? 'heart' : 'heart-outline'} size={18} color={isLiked ? '#e53e3e' : '#94a3b8'} />
             <Text style={[styles.actionText, isLiked && { color: '#e53e3e' }]}>{item.likes?.length || 0}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn}>
+          <TouchableOpacity style={styles.actionBtn} onPress={() => router.push(`/(main)/post/${item.id}` as any)}>
             <Ionicons name="chatbubble-outline" size={18} color="#94a3b8" />
-            <Text style={styles.actionText}>{item.comments?.length || 0}</Text>
+            <Text style={styles.actionText}>{item.comments?.length || 0} Reply</Text>
           </TouchableOpacity>
           {currentUserId === item.author_id && (
             <TouchableOpacity style={styles.actionBtn} onPress={() => handleDelete(item.id)}>

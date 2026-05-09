@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { formatRelativeTime } from '@/lib/utils'
 import { Heart, MessageCircle, Trash2 } from 'lucide-react'
@@ -16,40 +17,44 @@ interface PostCardProps {
     likes: { user_id: string }[]
     comments: { id: string }[]
   }
+  onRefresh?: () => void
 }
 
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, onRefresh }: PostCardProps) {
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const [isLiked, setIsLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(post.likes?.length || 0)
-  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const supabase = createClient()
 
-  useState(() => {
+  useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
         setCurrentUserId(user.id)
         setIsLiked(post.likes?.some(l => l.user_id === user.id) ?? false)
+        setLikeCount(post.likes?.length || 0)
       }
     })
-  })
+  }, [])
 
   const handleLike = async () => {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    if (isLiked) {
-      await supabase.from('post_likes').delete().match({ post_id: post.id, user_id: user.id })
-      setIsLiked(false)
-      setLikeCount(prev => Math.max(0, prev - 1))
+    const newLiked = !isLiked
+
+    setIsLiked(newLiked)
+    setLikeCount(prev => newLiked ? prev + 1 : Math.max(0, prev - 1))
+
+    if (newLiked) {
+      try { await supabase.from('post_likes').insert({ post_id: post.id, user_id: user.id }) } catch {}
     } else {
-      await supabase.from('post_likes').insert({ post_id: post.id, user_id: user.id })
-      setIsLiked(true)
-      setLikeCount(prev => prev + 1)
+      try { await supabase.from('post_likes').delete().match({ post_id: post.id, user_id: user.id }) } catch {}
     }
   }
 
   const handleDelete = async () => {
     await supabase.from('posts').delete().match({ id: post.id })
+    onRefresh?.()
   }
 
   return (
@@ -77,10 +82,14 @@ export function PostCard({ post }: PostCardProps) {
               <Heart size={16} className={isLiked ? 'fill-accent text-accent' : 'text-light-4 hover:text-accent'} />
               <span className={isLiked ? 'text-accent' : 'text-light-4'}>{likeCount}</span>
             </button>
-            <button className="flex items-center gap-1.5 text-sm text-light-4 hover:text-primary-500 transition">
+            <Link
+              href={`/feed/${post.id}`}
+              className="flex items-center gap-1.5 text-sm text-light-4 hover:text-primary-500 transition"
+            >
               <MessageCircle size={16} />
               <span>{post.comments?.length || 0}</span>
-            </button>
+              <span className="hidden sm:inline ml-0.5 text-xs">Reply</span>
+            </Link>
             {currentUserId === post.author_id && (
               <button onClick={handleDelete} className="ml-auto text-light-4 hover:text-accent transition">
                 <Trash2 size={16} />

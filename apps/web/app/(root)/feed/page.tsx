@@ -149,7 +149,7 @@ export default function FeedPage() {
 
       <div className="space-y-4">
         {posts.map(post => (
-          <PostCard key={post.id} post={post} />
+          <PostCard key={post.id} post={post} onRefresh={fetchPosts} />
         ))}
         {posts.length === 0 && (
           <p className="text-light-4 text-center py-10">No posts yet. Be the first to share!</p>

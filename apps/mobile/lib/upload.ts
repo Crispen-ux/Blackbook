@@ -20,6 +20,63 @@ export async function pickImage(options?: { allowsEditing?: boolean; aspect?: [n
   return result.assets[0]
 }
 
+export async function pickImageAllowingAll() {
+  const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+  if (status !== 'granted') {
+    Alert.alert('Permission needed', 'Please grant camera roll access to upload images.')
+    return null
+  }
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    quality: 0.8,
+  })
+  if (result.canceled) return null
+  return result.assets[0]
+}
+
+export async function uploadChatAttachment(
+  uri: string,
+  chatId: string
+): Promise<{ name: string; storage_path: string; mime_type: string; size: number } | null> {
+  try {
+    const response = await fetch(uri)
+    const blob = await response.blob()
+    const fileExt = uri.split('.').pop() || 'jpg'
+    const fileName = `${chatId}/${Date.now()}.${fileExt}`
+    const mimeType = `image/${fileExt === 'jpg' ? 'jpeg' : fileExt}`
+
+    const { error } = await supabase.storage
+      .from('chat_attachments')
+      .upload(fileName, blob, {
+        contentType: mimeType,
+        cacheControl: '3600',
+      })
+
+    if (error) throw error
+
+    return {
+      name: uri.split('/').pop() || 'image',
+      storage_path: fileName,
+      mime_type: mimeType,
+      size: blob.size,
+    }
+  } catch (error: any) {
+    Alert.alert('Upload failed', error.message)
+    return null
+  }
+}
+
+export async function getSignedUrl(storagePath: string): Promise<string | null> {
+  try {
+    const { data } = await supabase.storage
+      .from('chat_attachments')
+      .createSignedUrl(storagePath, 3600)
+    return data?.signedUrl || null
+  } catch {
+    return null
+  }
+}
+
 export async function uploadImage(
   bucket: 'avatars' | 'posts' | 'events',
   uri: string,
