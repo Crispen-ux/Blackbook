@@ -59,9 +59,9 @@ export default function HomePage() {
       {/* Nav */}
       <nav className="fixed top-0 inset-x-0 z-50 bg-dark-1/90 backdrop-blur border-b border-dark-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-24">
             <Link href="/" className="flex items-center gap-3">
-              <Image src="/logo.png" alt="BlackBook" width={120} height={30} className="h-8 w-auto" />
+              <Image src="/logo.png" alt="BlackBook" width={300} height={75} className="h-20 w-auto" />
             </Link>
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-sm text-light-4 hover:text-light-1 transition">Features</a>
@@ -77,7 +77,7 @@ export default function HomePage() {
           </div>
         </div>
         {menuOpen && (
-          <div className="md:hidden border-t border-dark-4 bg-dark-2 px-4 py-4 space-y-3">
+          <div className="md:hidden border-t border-dark-4 bg-dark-2 px-4 py-4 space-y-3 mt-8">
             <a href="#features" onClick={() => setMenuOpen(false)} className="block text-light-4 py-2">Features</a>
             <a href="#pricing" onClick={() => setMenuOpen(false)} className="block text-light-4 py-2">Pricing</a>
             <Link href="/login" onClick={() => setMenuOpen(false)} className="block text-light-4 py-2">Sign In</Link>
@@ -218,8 +218,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Mobile App */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-3xl sm:text-4xl font-bold">Take BlackBook on the go</h2>
+              <p className="text-lg text-light-4">Stay connected with your network wherever you are. The BlackBook mobile app brings the full experience to your pocket.</p>
+              <ul className="space-y-3">
+                {[
+                  'Real-time messaging and notifications',
+                  'Browse and RSVP to events on the fly',
+                  'AI-powered mentor matching anywhere',
+                  'Join circles and engage with your community',
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-light-3">
+                    <CheckCircle size={16} className="text-primary-500 mt-0.5 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a href="#" className="flex items-center gap-3 px-5 py-3 bg-dark-2 border border-dark-4 rounded-xl hover:border-primary-500/50 transition group">
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 text-light-1 group-hover:text-primary-500 transition" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                  <div>
+                    <div className="text-xs text-light-4">Download on the</div>
+                    <div className="text-sm font-semibold text-light-1 group-hover:text-primary-500 transition">App Store</div>
+                  </div>
+                </a>
+                <a href="#" className="flex items-center gap-3 px-5 py-3 bg-dark-2 border border-dark-4 rounded-xl hover:border-primary-500/50 transition group">
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 text-light-1 group-hover:text-primary-500 transition" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                  <div>
+                    <div className="text-xs text-light-4">Get it on</div>
+                    <div className="text-sm font-semibold text-light-1 group-hover:text-primary-500 transition">Google Play</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div className="hidden md:flex justify-center">
+              <div className="relative w-64 h-[500px] bg-dark-2 rounded-[32px] border-4 border-dark-4 p-2">
+                <div className="w-full h-full bg-gradient-to-b from-primary-500/20 to-dark-3 rounded-[28px] flex flex-col items-center justify-center gap-4">
+                  <Image src="/logo.png" alt="" width={120} height={30} className="h-8 w-auto opacity-40" />
+                  <div className="w-12 h-12 rounded-xl bg-primary-500/20 flex items-center justify-center">
+                    <Zap size={24} className="text-primary-500" />
+                  </div>
+                  <p className="text-light-4 text-xs text-center px-6">Coming soon to iOS & Android</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-dark-2/50">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <h2 className="text-3xl sm:text-4xl font-bold">Ready to elevate your network?</h2>
           <p className="text-lg text-light-4">Join thousands of Black professionals already connecting, growing, and thriving on BlackBook.</p>
@@ -235,7 +287,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="space-y-4">
-              <Image src="/logo.png" alt="BlackBook" width={100} height={25} className="h-6 w-auto" />
+              <Image src="/logo.png" alt="BlackBook" width={250} height={62} className="h-16 w-auto" />
               <p className="text-sm text-light-4">Africa&apos;s premium professional network for Black decision-makers.</p>
             </div>
             {[
